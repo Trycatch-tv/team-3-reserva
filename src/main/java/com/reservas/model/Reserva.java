@@ -28,12 +28,12 @@ public class Reserva {
 	private Time hora;
 	
 	@Column(name = "number_people", length = 10,nullable = false)
-	private int cantidadDePersonas;
+	private String cantidadDePersonas;
 	
 	@Column(name = "comment", length = 100,nullable = false)
 	private String Comentario;
 
-	public Reserva(Integer id, Cliente cliente, List<Mesa> mesa, Date fecha, Time hora, int cantidadDePersonas,
+	public Reserva(Integer id, Cliente cliente, List<Mesa> mesa, Date fecha, Time hora, String cantidadDePersonas,
 			String comentario) {
 		this.id = id;
 		this.cliente = cliente;
@@ -87,11 +87,11 @@ public class Reserva {
 		this.hora = hora;
 	}
 
-	public int getCantidadDePersonas() {
+	public String getCantidadDePersonas() {
 		return cantidadDePersonas;
 	}
 
-	public void setCantidadDePersonas(int cantidadDePersonas) {
+	public void setCantidadDePersonas(String cantidadDePersonas) {
 		this.cantidadDePersonas = cantidadDePersonas;
 	}
 
