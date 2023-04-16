@@ -25,8 +25,10 @@ public class Cliente {
     @Column(name = "comment",length = 255,nullable = false)
     private String comentario;
     
-    @OneToMany(mappedBy = "cliente",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Reserva> reserva;
+
+	
 
 	public Cliente(Long id, String nombre_completo, String telefono, String correo, String comentario,
 			List<Reserva> reserva) {
@@ -81,19 +83,12 @@ public class Cliente {
 		this.comentario = comentario;
 	}
 
-	public List<Reserva> getReserva() {
-		return reserva;
-	}
-
-	public void setReserva(List<Reserva> reserva) {
-		this.reserva = reserva;
-	}
-
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nombre_completo=" + nombre_completo + ", telefono=" + telefono + ", correo="
 				+ correo + ", comentario=" + comentario + ", reserva=" + reserva + "]";
 	}
 
-	
+
+    
 }
