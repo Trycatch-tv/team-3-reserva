@@ -1,5 +1,7 @@
 package com.reservas.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -23,11 +25,11 @@ public class Cliente {
     @Column(name = "comment",length = 255,nullable = false)
     private String comentario;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Reserva reserva;
+    @OneToMany(mappedBy = "cliente",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Reserva> reserva;
 
 	public Cliente(Long id, String nombre_completo, String telefono, String correo, String comentario,
-			Reserva reserva) {
+			List<Reserva> reserva) {
 		this.id = id;
 		this.nombre_completo = nombre_completo;
 		this.telefono = telefono;
@@ -79,11 +81,11 @@ public class Cliente {
 		this.comentario = comentario;
 	}
 
-	public Reserva getReserva() {
+	public List<Reserva> getReserva() {
 		return reserva;
 	}
 
-	public void setReserva(Reserva reserva) {
+	public void setReserva(List<Reserva> reserva) {
 		this.reserva = reserva;
 	}
 
@@ -91,7 +93,7 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [id=" + id + ", nombre_completo=" + nombre_completo + ", telefono=" + telefono + ", correo="
 				+ correo + ", comentario=" + comentario + ", reserva=" + reserva + "]";
-	} 
-    
-    
+	}
+
+	
 }
