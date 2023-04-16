@@ -1,6 +1,8 @@
 package com.reservas.controller;
 
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +20,7 @@ import com.reservas.service.ReservaService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/Reserva")
+@RequestMapping("/api/reserva")
 public class ReservaController {
 
 	@Autowired
@@ -30,7 +32,7 @@ public class ReservaController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Reserva> buscarReservaPorId(@PathVariable Integer id) {
+	public ResponseEntity<Reserva> buscarReservaPorId(@PathVariable Long id) {
 		try {
 			return ResponseEntity.ok(reservaService.buscarReservaPorId(id));
 		}
@@ -52,7 +54,7 @@ public class ReservaController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Reserva> editarReserva(@PathVariable Integer id, @RequestBody Reserva reserva) {
+	public ResponseEntity<Reserva> editarReserva(@PathVariable Long id, @RequestBody Reserva reserva) {
 		try {
 			Reserva reservaExistente = reservaService.buscarReservaPorId(id);
 			if (reserva.getMesa() != null )
@@ -66,11 +68,11 @@ public class ReservaController {
 				reservaExistente.setCantidadDePersonas(reserva.getCantidadDePersonas());
 			}
 			
-			if (reserva.getFecha() != null    ) {
+			if (reserva.getFecha() != null && !reserva.getFecha().isEmpty()    ) {
 				reservaExistente.setFecha(reserva.getFecha());
 			}
 			
-			if (reserva.getHora() != null   ) {
+			if (reserva.getHora() != null && !reserva.getHora().isEmpty()   ) {
 				reservaExistente.setHora(reserva.getHora());
 			}
 			
@@ -89,7 +91,7 @@ public class ReservaController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Reserva> eliminarReserva(@PathVariable Integer id) {
+	public ResponseEntity<Reserva> eliminarReserva(@PathVariable Long id) {
 
 		try {
 			Reserva reservaEliminada = reservaService.buscarReservaPorId(id);
