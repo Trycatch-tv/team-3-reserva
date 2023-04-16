@@ -1,19 +1,14 @@
 package com.reservas.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
-
 
 @Entity
-@Table(name = "reservas")
 public class Reserva {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Cliente cliente;
@@ -21,12 +16,11 @@ public class Reserva {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Mesa mesa;
 
-	@Column(name = "date", length = 30, nullable = false)
-	@DateTimeFormat(pattern = "dd/MM/yyyy") // (format dd/mm/aa)
-	private Date fecha;
+	@Column(name = "date",nullable = false)
+	private String fecha;
 
-	@Column(name = "time", length = 30, nullable = false)
-	private Time hora;
+	@Column(name = "time", nullable = false)
+	private String hora;
 
 	@Column(name = "number_people", length = 10, nullable = false)
 	private String cantidadDePersonas;
@@ -34,11 +28,8 @@ public class Reserva {
 	@Column(name = "comment", length = 100, nullable = false)
 	private String Comentario;
 
-	public Reserva(Integer id, Cliente cliente, Mesa mesa, Date fecha, Time hora, String cantidadDePersonas,
-			String comentario) {
+	public Reserva(Long id, String fecha, String hora, String cantidadDePersonas, String comentario) {
 		this.id = id;
-		this.cliente = cliente;
-		this.mesa = mesa;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.cantidadDePersonas = cantidadDePersonas;
@@ -48,11 +39,11 @@ public class Reserva {
 	public Reserva() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -72,19 +63,19 @@ public class Reserva {
 		this.mesa = mesa;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
-	public Time getHora() {
+	public String getHora() {
 		return hora;
 	}
 
-	public void setHora(Time hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 
@@ -106,8 +97,8 @@ public class Reserva {
 
 	@Override
 	public String toString() {
-		return "Reserva [id=" + id + ", cliente=" + cliente + ", mesa=" + mesa + ", fecha=" + fecha + ", hora=" + hora
-				+ ", cantidadDePersonas=" + cantidadDePersonas + ", Comentario=" + Comentario + "]";
+		return "Reserva [id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", cantidadDePersonas="
+				+ cantidadDePersonas + ", Comentario=" + Comentario + "]";
 	}
 
 	
