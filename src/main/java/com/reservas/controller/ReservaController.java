@@ -1,7 +1,6 @@
 package com.reservas.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.reservas.model.Reserva;
 import com.reservas.service.ReservaService;
 
@@ -55,22 +55,22 @@ public class ReservaController {
 	public ResponseEntity<Reserva> editarReserva(@PathVariable Integer id, @RequestBody Reserva reserva) {
 		try {
 			Reserva reservaExistente = reservaService.buscarReservaPorId(id);
-			if (reserva.getMesa() != null && !reserva.getMesa().isEmpty())
+			if (reserva.getMesa() != null )
 				reservaExistente.setMesa(reserva.getMesa());
 
-			if (reserva.getCliente() != null ) {
+			if (reserva.getCliente() != null  ) {
 				reservaExistente.setCliente(reserva.getCliente());
 			}
 			
-			if (reserva.getCantidadDePersonas() != null  && !reserva.getMesa().isEmpty() ) {
+			if (reserva.getCantidadDePersonas() != null && !reserva.getCantidadDePersonas().isEmpty()  ) {
 				reservaExistente.setCantidadDePersonas(reserva.getCantidadDePersonas());
 			}
 			
-			if (reserva.getFecha() != null   ) {
+			if (reserva.getFecha() != null    ) {
 				reservaExistente.setFecha(reserva.getFecha());
 			}
 			
-			if (reserva.getHora() != null  ) {
+			if (reserva.getHora() != null   ) {
 				reservaExistente.setHora(reserva.getHora());
 			}
 			
