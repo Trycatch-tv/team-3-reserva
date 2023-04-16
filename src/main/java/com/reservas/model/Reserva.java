@@ -10,31 +10,32 @@ import java.util.List;
 @Entity
 @Table(name = "reservas")
 public class Reserva {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Cliente cliente;
-	@OneToMany(mappedBy = "reserva",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy ="reserva",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	private List<Cliente> cliente;
+	
+	@OneToMany(mappedBy = "reserva", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Mesa> mesa;
-	
-	@Column(name = "date", length = 30,nullable = false)
-	@DateTimeFormat(pattern="dd/MM/yyyy")   //(format dd/mm/aa)
+
+	@Column(name = "date", length = 30, nullable = false)
+	@DateTimeFormat(pattern = "dd/MM/yyyy") // (format dd/mm/aa)
 	private Date fecha;
-	
-	@Column(name = "time", length = 30,nullable = false)
+
+	@Column(name = "time", length = 30, nullable = false)
 	private Time hora;
-	
-	@Column(name = "number_people", length = 10,nullable = false)
+
+	@Column(name = "number_people", length = 10, nullable = false)
 	private String cantidadDePersonas;
-	
-	@Column(name = "comment", length = 100,nullable = false)
+
+	@Column(name = "comment", length = 100, nullable = false)
 	private String Comentario;
 
-	public Reserva(Integer id, Cliente cliente, List<Mesa> mesa, Date fecha, Time hora, String cantidadDePersonas,
-			String comentario) {
+	public Reserva(Integer id, List<Cliente> cliente, List<Mesa> mesa, Date fecha, Time hora, String cantidadDePersonas,
+			String comentario) {;
 		this.id = id;
 		this.cliente = cliente;
 		this.mesa = mesa;
@@ -45,6 +46,7 @@ public class Reserva {
 	}
 
 	public Reserva() {
+		
 	}
 
 	public Integer getId() {
@@ -55,11 +57,11 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public Cliente getCliente() {
+	public List<Cliente> getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(List<Cliente> cliente) {
 		this.cliente = cliente;
 	}
 
@@ -108,6 +110,8 @@ public class Reserva {
 		return "Reserva [id=" + id + ", cliente=" + cliente + ", mesa=" + mesa + ", fecha=" + fecha + ", hora=" + hora
 				+ ", cantidadDePersonas=" + cantidadDePersonas + ", Comentario=" + Comentario + "]";
 	}
+	
+	
 	
 	
 }
