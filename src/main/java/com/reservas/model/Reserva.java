@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name = "reservas")
@@ -15,11 +15,11 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToMany(mappedBy ="reserva",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	private List<Cliente> cliente;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Cliente cliente;
 	
-	@OneToMany(mappedBy = "reserva", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Mesa> mesa;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Mesa mesa;
 
 	@Column(name = "date", length = 30, nullable = false)
 	@DateTimeFormat(pattern = "dd/MM/yyyy") // (format dd/mm/aa)
@@ -34,8 +34,8 @@ public class Reserva {
 	@Column(name = "comment", length = 100, nullable = false)
 	private String Comentario;
 
-	public Reserva(Integer id, List<Cliente> cliente, List<Mesa> mesa, Date fecha, Time hora, String cantidadDePersonas,
-			String comentario) {;
+	public Reserva(Integer id, Cliente cliente, Mesa mesa, Date fecha, Time hora, String cantidadDePersonas,
+			String comentario) {
 		this.id = id;
 		this.cliente = cliente;
 		this.mesa = mesa;
@@ -46,7 +46,6 @@ public class Reserva {
 	}
 
 	public Reserva() {
-		
 	}
 
 	public Integer getId() {
@@ -57,19 +56,19 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public List<Cliente> getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(List<Cliente> cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
-	public List<Mesa> getMesa() {
+	public Mesa getMesa() {
 		return mesa;
 	}
 
-	public void setMesa(List<Mesa> mesa) {
+	public void setMesa(Mesa mesa) {
 		this.mesa = mesa;
 	}
 
@@ -110,8 +109,6 @@ public class Reserva {
 		return "Reserva [id=" + id + ", cliente=" + cliente + ", mesa=" + mesa + ", fecha=" + fecha + ", hora=" + hora
 				+ ", cantidadDePersonas=" + cantidadDePersonas + ", Comentario=" + Comentario + "]";
 	}
-	
-	
-	
+
 	
 }
