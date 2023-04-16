@@ -1,7 +1,7 @@
 package com.reservas.model;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 public class Cliente {
@@ -23,66 +23,75 @@ public class Cliente {
     @Column(name = "comment",length = 255,nullable = false)
     private String comentario;
     
-     
-    @OneToMany(mappedBy = "cliente",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private List<Reserva> reserva;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Reserva reserva;
 
+	public Cliente(Long id, String nombre_completo, String telefono, String correo, String comentario,
+			Reserva reserva) {
+		this.id = id;
+		this.nombre_completo = nombre_completo;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.comentario = comentario;
+		this.reserva = reserva;
+	}
 
-    public Cliente() {
-    }
-    public Cliente(Long id, String nombre_completo, String telefono, String correo, String comentario) {
-        this.id = id;
-        this.nombre_completo = nombre_completo;
-        this.telefono = telefono;
-        this.correo = correo;
-        this.comentario = comentario;
-    }
+	public Cliente() {
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getNombre_completo() {
-        return nombre_completo;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getTelefono() {
-        return telefono;
-    }
+	public String getNombre_completo() {
+		return nombre_completo;
+	}
 
-    public String getCorreo() {
-        return correo;
-    }
+	public void setNombre_completo(String nombre_completo) {
+		this.nombre_completo = nombre_completo;
+	}
 
-    public String getComentario() {
-        return comentario;
-    }
+	public String getTelefono() {
+		return telefono;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 
-    public void setNombre_completo(String nombre_completo) {
-        this.nombre_completo = nombre_completo;
-    }
+	public String getCorreo() {
+		return correo;
+	}
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
+	public String getComentario() {
+		return comentario;
+	}
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
 
-    @Override
-    public String toString() {
-        return ("Telefono " + this.getTelefono() +
-                "email "  +
-                this.getCorreo()
-                + "comentario " + this.getComentario() +
-                "Nomre " + this.getComentario());    }
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nombre_completo=" + nombre_completo + ", telefono=" + telefono + ", correo="
+				+ correo + ", comentario=" + comentario + ", reserva=" + reserva + "]";
+	} 
+    
+    
 }
