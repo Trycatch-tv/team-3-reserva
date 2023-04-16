@@ -1,5 +1,7 @@
 package com.reservas.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 @Entity
 public class Mesa {
@@ -21,8 +23,8 @@ public class Mesa {
 	    @Column(name = "comment",length = 255,nullable = false)
 	    private String comentario;
 	
-	    @ManyToOne(fetch = FetchType.EAGER)
-	    private Reserva reserva;
+	    @OneToMany(mappedBy = "mesa",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	    private List<Reserva> reserva;
 
 
 	    public Mesa() {
