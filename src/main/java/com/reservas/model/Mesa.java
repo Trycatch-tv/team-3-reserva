@@ -1,8 +1,19 @@
 package com.reservas.model;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Mesa {
 
@@ -22,62 +33,17 @@ public class Mesa {
 
 	    @Column(name = "comment",length = 255,nullable = false)
 	    private String comentario;
-	
-	    @OneToMany(mappedBy = "mesa",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
+		@CreationTimestamp
+		@Column(name = "created_at", updatable = false)
+		private Date created;
+
+		@UpdateTimestamp
+		@Column(name = "updated_at",updatable = true)
+		private Date updated;
+
+		@JsonIgnore
+	    @OneToMany(mappedBy = "mesa")
 	    private List<Reserva> reserva;
 
-
-	    public Mesa() {
-	    }
-	    public Mesa(Long id, String nombre_completo, String capacidad, String ubicacion, String comentario) {
-	        this.id = id;
-	        this.nombre_completo = nombre_completo;
-	        this.capacidad = capacidad;
-	        this.ubicacion = ubicacion;
-	        this.comentario = comentario;
-	    }
-
-	   
-	    
-	    public Long getId() {
-			return id;
-		}
-	    public String getNombre_completo() {
-			return nombre_completo;
-		}
-	    
-	    public String getCapacidad() {
-			return capacidad;
-		}
-	    public String getUbicacion() {
-			return ubicacion;
-		}
-	    public String getComentario() {
-			return comentario;
-		}
-
-	    public void setId(Long id) {
-			this.id = id;
-		}
-		public void setNombre_completo(String nombre_completo) {
-			this.nombre_completo = nombre_completo;
-		}		
-		public void setCapacidad(String capacidad) {
-			this.capacidad = capacidad;
-		}
-		public void setUbicacion(String ubicacion) {
-			this.ubicacion = ubicacion;
-		}
-		public void setComentario(String comentario) {
-			this.comentario = comentario;
-		}
-		
-		@Override
-	    public String toString() {
-	        return ("Capacidad: " + this.getCapacidad() +
-	        		"ubicacion: "  + this.getUbicacion() + 
-	        		"comentario: " + this.getComentario() +  
-	        		"Nombre: " + this.getNombre_completo());   
-	        }
-	
 }
