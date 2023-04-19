@@ -11,6 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 
@@ -23,20 +25,13 @@ public class Reserva {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@ManyToOne
-	@JoinColumn(name="reserva", nullable = false)
-	private Cliente cliente;
-	
-	@ManyToOne
-	private Mesa mesa;
 
 	@Column(name = "date")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date fecha;
+	private LocalDate fecha;
 
 	@Column(name = "time", nullable = false)
-	private String hora;
+	private LocalTime hora;
 
 	@Column(name = "number_people", length = 10, nullable = false)
 	private String cantidadDePersonas;
@@ -50,4 +45,10 @@ public class Reserva {
 	@UpdateTimestamp
 	@Column(name = "updated_at", updatable = true)
 	private Date updated;
+
+	@ManyToOne
+	private Cliente cliente;
+
+	@ManyToOne
+	private Mesa mesa;
 }

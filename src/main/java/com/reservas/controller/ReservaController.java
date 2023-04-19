@@ -79,7 +79,7 @@ public class ReservaController {
 				reservaExistente.setFecha(reserva.getFecha());
 			}
 			
-			if (reserva.getHora() != null && !reserva.getHora().isEmpty()   ) {
+			if (reserva.getHora() != null   ) {
 				reservaExistente.setHora(reserva.getHora());
 			}
 			
