@@ -56,7 +56,7 @@ public class MesaController {
     public ResponseEntity<Mesa> editarMesa(@PathVariable Long id, @RequestBody Mesa mesa) {
         try {
             Mesa mesaExistente = mesaService.buscarMesaPorId(id);
-            System.out.println(mesaExistente);
+            System.out.println(mesaExistente.getNombre_completo());
             if (mesa.getNombre_completo()!= null &&!mesa.getNombre_completo().isEmpty())
                 mesaExistente.setNombre_completo(mesa.getNombre_completo());
 

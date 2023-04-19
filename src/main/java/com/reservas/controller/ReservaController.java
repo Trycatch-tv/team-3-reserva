@@ -1,6 +1,7 @@
 package com.reservas.controller;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,21 @@ public class ReservaController {
 
 	@GetMapping("/")
 	public ResponseEntity<List<Reserva>> listarReserva() {
+
+		return ResponseEntity.ok(reservaService.listarReservas());
+	}
+	@GetMapping("/dia/{fecha}")
+	public ResponseEntity<List<Reserva>> listarReserva(@PathVariable Date fecha) {
+
 		return ResponseEntity.ok(reservaService.listarReservas());
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Reserva> buscarReservaPorId(@PathVariable Long id) {
 		try {
-			return ResponseEntity.ok(reservaService.buscarReservaPorId(id));
+			Reserva res = reservaService.buscarReservaPorId(id);
+			return ResponseEntity.ok(res);
 		}
-
 		catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -68,7 +75,7 @@ public class ReservaController {
 				reservaExistente.setCantidadDePersonas(reserva.getCantidadDePersonas());
 			}
 			
-			if (reserva.getFecha() != null && !reserva.getFecha().isEmpty()    ) {
+			if (reserva.getFecha() != null ) {
 				reservaExistente.setFecha(reserva.getFecha());
 			}
 			

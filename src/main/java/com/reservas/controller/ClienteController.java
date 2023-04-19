@@ -35,6 +35,7 @@ public class ClienteController {
     @PostMapping("/")
     public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
         try {
+            System.out.println(cliente.toString());
             Cliente clienteCreado = clienteService.crearCliente(cliente);
             return ResponseEntity.ok(clienteCreado);
         }catch (Exception e){

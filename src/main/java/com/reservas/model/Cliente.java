@@ -1,10 +1,20 @@
 package com.reservas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Cliente {
 
@@ -24,71 +34,18 @@ public class Cliente {
 
     @Column(name = "comment",length = 255,nullable = false)
     private String comentario;
-    
-    @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+
+	@CreationTimestamp
+	@Column(name = "created_at", updatable = false)
+	private Date created;
+
+	@UpdateTimestamp
+	@Column(name = "updated_at",updatable = true)
+	private Date updated;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente")
     private List<Reserva> reserva;
 
-	
 
-	public Cliente(Long id, String nombre_completo, String telefono, String correo, String comentario,
-			List<Reserva> reserva) {
-		this.id = id;
-		this.nombre_completo = nombre_completo;
-		this.telefono = telefono;
-		this.correo = correo;
-		this.comentario = comentario;
-		this.reserva = reserva;
-	}
-
-	public Cliente() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre_completo() {
-		return nombre_completo;
-	}
-
-	public void setNombre_completo(String nombre_completo) {
-		this.nombre_completo = nombre_completo;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	public String getComentario() {
-		return comentario;
-	}
-
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
-	}
-
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nombre_completo=" + nombre_completo + ", telefono=" + telefono + ", correo="
-				+ correo + ", comentario=" + comentario + ", reserva=" + reserva + "]";
-	}
-
-
-    
 }
