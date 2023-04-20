@@ -43,7 +43,6 @@ public class Reserva {
 	private Date created;
 
 	@UpdateTimestamp
-	@Column(name = "updated_at", updatable = true)
 	private Date updated;
 
 	@ManyToOne
