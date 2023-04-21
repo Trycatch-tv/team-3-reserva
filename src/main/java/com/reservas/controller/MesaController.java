@@ -26,11 +26,11 @@ public class MesaController {
 	@Autowired
     private MesaService mesaService;
 
-    @GetMapping("/")
+    @GetMapping("/listar")
     public ResponseEntity<List<Mesa>> listarMesa() {
         return ResponseEntity.ok(mesaService.listarMesas());
     }
-    @GetMapping("/{id}")
+    @GetMapping("/mostrar/{id}")
     public ResponseEntity<Mesa> buscarMesaPorId(@PathVariable Long id) {
         try{
             return ResponseEntity.ok(mesaService.buscarMesaPorId(id));
@@ -42,7 +42,7 @@ public class MesaController {
 
     }
 
-    @PostMapping("/")
+    @PostMapping("/crear")
     public ResponseEntity<Mesa> crearMesa(@RequestBody Mesa mesa) {
         try {
             Mesa mesaCreada = mesaService.crearMesa(mesa);
@@ -52,7 +52,7 @@ public class MesaController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/editar/{id}")
     public ResponseEntity<Mesa> editarMesa(@PathVariable Long id, @RequestBody Mesa mesa) {
         try {
             Mesa mesaExistente = mesaService.buscarMesaPorId(id);
@@ -80,7 +80,7 @@ public class MesaController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Mesa> eliminarCliente(@PathVariable Long id) {
 
         try {

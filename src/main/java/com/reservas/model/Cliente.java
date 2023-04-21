@@ -26,13 +26,13 @@ public class Cliente {
     private String nombre_completo;
 
 
-    @Column(name = "phone",length = 100,nullable = false)
+    @Column(name = "phone",length = 100,nullable = true)
     private String telefono;
 
-    @Column(name = "email",length = 100,nullable = false)
+    @Column(name = "email",length = 100,nullable = false,unique = true)
     private String correo;
 
-    @Column(name = "comment",length = 255,nullable = false)
+    @Column(name = "comment",length = 255,nullable = true)
     private String comentario;
 
 	@CreationTimestamp

@@ -21,7 +21,7 @@ public class Mesa {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	    @Column(name = "name", length = 100,nullable = false)
+	    @Column(name = "name", length = 100,nullable = false,unique = true)
 	    private String nombre_completo;
 
 
@@ -31,7 +31,7 @@ public class Mesa {
 	    @Column(name = "location",length = 100,nullable = false)
 	    private String ubicacion;
 
-	    @Column(name = "comment",length = 255,nullable = false)
+	    @Column(name = "comment",length = 255,nullable = true)
 	    private String comentario;
 
 		@CreationTimestamp

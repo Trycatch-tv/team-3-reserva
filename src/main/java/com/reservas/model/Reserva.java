@@ -26,17 +26,17 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "date")
+	@Column(name = "date_reservation")
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate fecha;
 
-	@Column(name = "time", nullable = false)
+	@Column(name = "time_reservation", nullable = false)
 	private LocalTime hora;
 
 	@Column(name = "number_people", length = 10, nullable = false)
 	private String cantidadDePersonas;
 
-	@Column(name = "comment", length = 100, nullable = false)
+	@Column(name = "comment", length = 100, nullable = true)
 	private String Comentario;
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false)
