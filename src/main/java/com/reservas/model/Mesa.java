@@ -28,13 +28,13 @@ public class Mesa {
 	    private String nombre_completo;
 
 
-		@NotBlank(message = "El teléfono es obligatorio")
+		//@NotBlank(message = "El teléfono es obligatorio")
 		@NotNull(message = "La capacidad no puede ser nula")
 		@NotEmpty(message = "La capacidad no puede vacia")
-		@Size(min = 1, max =2,message = "Número entre 1 y 99")
+		//@Size(min = 1, max =2,message = "Número entre 1 y 99")
 		@Pattern(regexp = "^[0-9]{1,2}$", message = "Solo númeeros")
 	    @Column(name = "capacidad",nullable = false)
-	    private String capacidad;
+	    private int capacidad;
 
 		@NotBlank(message = "El teléfono es obligatorio")
 		@Size(min = 3, max = 50,message = "Mínimo 3 caracteres y máximo 50")

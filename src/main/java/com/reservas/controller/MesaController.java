@@ -68,7 +68,7 @@ public class MesaController {
             if (mesa.getUbicacion()!= null &&!mesa.getUbicacion().isEmpty())
             mesaExistente.setUbicacion(mesa.getUbicacion());
 
-            if (mesa.getCapacidad()!= null &&!mesa.getCapacidad().isEmpty())
+            if (mesa.getCapacidad() > 0 && mesa.getCapacidad() < 100)
             mesaExistente.setCapacidad(mesa.getCapacidad());
 
 
