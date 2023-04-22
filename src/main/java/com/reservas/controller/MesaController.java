@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.reservas.model.Mesa;
 import com.reservas.service.MesaService;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/mesa")
@@ -43,7 +45,7 @@ public class MesaController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Mesa> crearMesa(@RequestBody Mesa mesa) {
+    public ResponseEntity<Mesa> crearMesa(@RequestBody @Valid Mesa mesa) {
         try {
             Mesa mesaCreada = mesaService.crearMesa(mesa);
             return ResponseEntity.ok(mesaCreada);
@@ -53,7 +55,7 @@ public class MesaController {
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<Mesa> editarMesa(@PathVariable Long id, @RequestBody Mesa mesa) {
+    public ResponseEntity<Mesa> editarMesa(@PathVariable Long id, @RequestBody @Valid Mesa mesa) {
         try {
             Mesa mesaExistente = mesaService.buscarMesaPorId(id);
             System.out.println(mesaExistente.getNombre_completo());

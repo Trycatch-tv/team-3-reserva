@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,9 +34,8 @@ public class ClienteController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> crearCliente( @RequestBody @Valid Cliente cliente) {
         try {
-            System.out.println(cliente.toString());
             Cliente clienteCreado = clienteService.crearCliente(cliente);
             return ResponseEntity.ok(clienteCreado);
         }catch (Exception e){
@@ -44,7 +44,7 @@ public class ClienteController {
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<Cliente> editarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> editarCliente(@PathVariable Long id, @RequestBody @Valid Cliente cliente) {
         try {
             Cliente clienteExistente = clienteService.buscarClientePorId(id);
 

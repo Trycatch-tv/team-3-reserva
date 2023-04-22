@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.reservas.model.Reserva;
 import com.reservas.service.ReservaService;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/reserva")
@@ -40,7 +41,7 @@ public class ReservaController {
 	}
 
 	@GetMapping("/listarfecha/{fecha}")
-	public ResponseEntity<List<Reserva>> listarReservadas(@PathVariable("fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha){
+	public ResponseEntity<List<Reserva>> listarReservadas(@PathVariable("fecha")  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha){
 		return ResponseEntity.ok(reservaService.listarReservadas(fecha));
 	}
 
@@ -67,7 +68,7 @@ public class ReservaController {
 	}
 
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<Reserva> editarReserva(@PathVariable Long id, @RequestBody Reserva reserva) {
+	public ResponseEntity<Reserva> editarReserva(@PathVariable Long id, @RequestBody @Valid Reserva reserva) {
 		try {
 			Reserva reservaExistente = reservaService.buscarReservaPorId(id);
 			if (reserva.getMesa() != null )
