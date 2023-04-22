@@ -30,9 +30,10 @@ public class Mesa {
 
 		//@NotBlank(message = "El teléfono es obligatorio")
 		@NotNull(message = "La capacidad no puede ser nula")
-		@NotEmpty(message = "La capacidad no puede vacia")
+		@Min(1)
+		@Max(10)
 		//@Size(min = 1, max =2,message = "Número entre 1 y 99")
-		@Pattern(regexp = "^[0-9]{1,2}$", message = "Solo númeeros")
+		//@Pattern(regexp = "^[0-9]{1,2}$", message = "Solo númeeros")
 	    @Column(name = "capacidad",nullable = false)
 	    private int capacidad;
 
