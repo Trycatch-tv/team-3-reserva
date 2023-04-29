@@ -35,12 +35,18 @@ public class ClienteController {
 
     @PostMapping("/crear")
     public ResponseEntity<Cliente> crearCliente( @RequestBody @Valid Cliente cliente) {
-        try {
-            Cliente clienteCreado = clienteService.crearCliente(cliente);
-            return ResponseEntity.ok(clienteCreado);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().build();
+//        try {
+        if (cliente.getTelefono() == null || cliente.getTelefono().equals("")) {
+            System.out.println("Dentro del post cliente");
+            throw new RuntimeException("Email requerido, excepción lanazada desde crear cliente");
         }
+        System.out.println("Dentro del post cliente try");
+        Cliente clienteCreado = clienteService.crearCliente(cliente);
+        return ResponseEntity.ok(clienteCreado);
+      /*  }catch (Exception e){
+            System.out.println("Dentro del post cliente catch");
+            return ResponseEntity.badRequest().build();
+        }*/
     }
 
     @PutMapping("/editar/{id}")

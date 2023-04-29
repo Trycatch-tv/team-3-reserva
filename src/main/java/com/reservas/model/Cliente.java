@@ -29,8 +29,8 @@ public class Cliente {
     private String nombre_completo;
 
 
-    @NotBlank(message = "El teléfono es obligatorio")
-    @Pattern(regexp = "^[0-9]{10}$", message = "Son 10 dítigos")
+    /*@NotBlank(message = "El teléfono es obligatorio")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Son 10 dítigos")*/
     @Column(name = "phone")
     private String telefono;
 
