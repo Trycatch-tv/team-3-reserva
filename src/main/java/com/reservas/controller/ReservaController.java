@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.reservas.model.Reserva;
 import com.reservas.service.ReservaService;
 
-import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
