@@ -1,10 +1,16 @@
 package com.reservas.controller;
 
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.reservas.model.Reserva;
 import com.reservas.service.ReservaService;
 
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/reserva")
@@ -27,18 +34,18 @@ public class ReservaController {
 	@Autowired
 	private ReservaService reservaService;
 
-	@GetMapping("/")
+	@GetMapping("/listar")
 	public ResponseEntity<List<Reserva>> listarReserva() {
 
 		return ResponseEntity.ok(reservaService.listarReservas());
 	}
-	@GetMapping("/dia/{fecha}")
-	public ResponseEntity<List<Reserva>> listarReserva(@PathVariable Date fecha) {
 
-		return ResponseEntity.ok(reservaService.listarReservas());
+	@GetMapping("/listarfecha/{fecha}")
+	public ResponseEntity<List<Reserva>> listarReservadas(@PathVariable("fecha")  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha){
+		return ResponseEntity.ok(reservaService.listarReservadas(fecha));
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/mostrar/{id}")
 	public ResponseEntity<Reserva> buscarReservaPorId(@PathVariable Long id) {
 		try {
 			Reserva res = reservaService.buscarReservaPorId(id);
@@ -50,7 +57,7 @@ public class ReservaController {
 
 	}
 
-	@PostMapping("/")
+	@PostMapping("/crear")
 	public ResponseEntity<Reserva> crearReserva(@RequestBody Reserva reserva) {
 		try {
 			Reserva ReservaCreada = reservaService.crearReserva(reserva);
@@ -60,8 +67,8 @@ public class ReservaController {
 		}
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Reserva> editarReserva(@PathVariable Long id, @RequestBody Reserva reserva) {
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<Reserva> editarReserva(@PathVariable Long id, @RequestBody @Valid Reserva reserva) {
 		try {
 			Reserva reservaExistente = reservaService.buscarReservaPorId(id);
 			if (reserva.getMesa() != null )
@@ -97,7 +104,7 @@ public class ReservaController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<Reserva> eliminarReserva(@PathVariable Long id) {
 
 		try {

@@ -2,9 +2,11 @@ package com.reservas.controller;
 
 import com.reservas.model.Cliente;
 import com.reservas.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -16,11 +18,11 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @GetMapping("/")
+    @GetMapping("/listar")
     public ResponseEntity<List<Cliente>> listarClientes() {
         return ResponseEntity.ok(clienteService.listarClientes());
     }
-    @GetMapping("/{id}")
+    @GetMapping("/mostrar/{id}")
     public ResponseEntity<Cliente> buscarClientePorId(@PathVariable Long id) {
         try{
             return ResponseEntity.ok(clienteService.buscarClientePorId(id));
@@ -32,19 +34,24 @@ public class ClienteController {
 
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
-        try {
-            System.out.println(cliente.toString());
-            Cliente clienteCreado = clienteService.crearCliente(cliente);
-            return ResponseEntity.ok(clienteCreado);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().build();
+    @PostMapping("/crear")
+    public ResponseEntity<Cliente> crearCliente( @RequestBody @Valid Cliente cliente) {
+//        try {
+        if (cliente.getTelefono() == null || cliente.getTelefono().equals("")) {
+            System.out.println("Dentro del post cliente");
+            throw new RuntimeException("Email requerido, excepción lanazada desde crear cliente");
         }
+        System.out.println("Dentro del post cliente try");
+        Cliente clienteCreado = clienteService.crearCliente(cliente);
+        return ResponseEntity.ok(clienteCreado);
+      /*  }catch (Exception e){
+            System.out.println("Dentro del post cliente catch");
+            return ResponseEntity.badRequest().build();
+        }*/
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Cliente> editarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<Cliente> editarCliente(@PathVariable Long id, @RequestBody @Valid Cliente cliente) {
         try {
             Cliente clienteExistente = clienteService.buscarClientePorId(id);
 
@@ -71,7 +78,7 @@ public class ClienteController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Cliente> eliminarCliente(@PathVariable Long id) {
 
         try {

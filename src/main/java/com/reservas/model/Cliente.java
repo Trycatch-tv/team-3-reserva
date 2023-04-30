@@ -1,18 +1,23 @@
 package com.reservas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
 
-@Data
+
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -22,17 +27,24 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 100,nullable = false)
+    @NotBlank(message = "Debe ingresar en nombre completo" )
+    @Size(min = 5, max = 50,message = "Mínimo 5 caracteres y máximo 50")
+    @Column(name = "name")
     private String nombre_completo;
 
 
-    @Column(name = "phone",length = 100,nullable = false)
+    /*@NotBlank(message = "El teléfono es obligatorio")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Son 10 dítigos")*/
+    @Column(name = "phone")
     private String telefono;
 
-    @Column(name = "email",length = 100,nullable = false)
+    @NotNull
+    @Email(message = "Correo inválido o existente")
+    @Column(name = "email",unique = true)
     private String correo;
 
-    @Column(name = "comment",length = 255,nullable = false)
+    @Size(max = 100, message = "El comentario no puede exceder los 100 caracteres")
+    @Column(name = "comment")
     private String comentario;
 
 	@CreationTimestamp

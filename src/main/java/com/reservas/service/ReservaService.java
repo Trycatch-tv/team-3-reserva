@@ -1,5 +1,6 @@
 package com.reservas.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class ReservaService {
 	 public List<Reserva> listarReservas() {
 	        return reservaRepository.findAll();
 	    }
+
+	public List<Reserva> listarReservadas(LocalDate fecha) { return reservaRepository.findByFecha(fecha); }
 
 	    public Reserva buscarReservaPorId(Long id) {
 	        return reservaRepository.findById(id).get();

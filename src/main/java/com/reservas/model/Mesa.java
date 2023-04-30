@@ -1,17 +1,18 @@
 package com.reservas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -21,17 +22,28 @@ public class Mesa {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	    @Column(name = "name", length = 100,nullable = false)
+		@NotBlank(message = "Debe ingresar en nombre completo" )
+		@Size(min = 2, max = 20,message = "Mínimo 5 caracteres y máximo 50")
+	    @Column(name = "name",unique = true)
 	    private String nombre_completo;
 
 
-	    @Column(name = "capacidad",length = 100,nullable = false)
-	    private String capacidad;
+		//@NotBlank(message = "El teléfono es obligatorio")
+		@NotNull(message = "La capacidad no puede ser nula")
+		@Min(1)
+		@Max(10)
+		//@Size(min = 1, max =2,message = "Número entre 1 y 99")
+		//@Pattern(regexp = "^[0-9]{1,2}$", message = "Solo númeeros")
+	    @Column(name = "capacidad",nullable = false)
+	    private int capacidad;
 
+		@NotBlank(message = "El teléfono es obligatorio")
+		@Size(min = 3, max = 50,message = "Mínimo 3 caracteres y máximo 50")
 	    @Column(name = "location",length = 100,nullable = false)
 	    private String ubicacion;
 
-	    @Column(name = "comment",length = 255,nullable = false)
+		@Size(min = 3, max = 50,message = "Mínimo 3 caracteres y máximo 50")
+	    @Column(name = "comment",length = 255,nullable = true)
 	    private String comentario;
 
 		@CreationTimestamp
